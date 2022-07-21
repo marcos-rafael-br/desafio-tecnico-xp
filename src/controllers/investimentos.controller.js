@@ -3,7 +3,6 @@ import validateCompra from "../middleware/compra.middleware.js";
 import validateVenda from "../middleware/venda.middleware.js";
 import serviceV from "../services/venda.service.js";
 import serviceC from "../services/compra.service.js";
-import model from "../models/venda.model.js";
 
 const investimentosController = Router();
 

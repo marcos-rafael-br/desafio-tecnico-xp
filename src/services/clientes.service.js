@@ -1,10 +1,12 @@
 import userModel from "../models/clientes.model.js";
+import HttpException from "../shared/http.exeception.js";
 
 // ------------------------------------ READ ------------------------------------
-const getResumoCliente = async ({codCliente}) => {
-  const cliente = await userModel.getResumoCliente(codCliente);
+const getResumoCliente = async ({id}) => {
+  console.log(id);
+  const cliente = await userModel.getResumoCliente(id);
   if (cliente.length === 0) {
-    throw new Error("Cliente não possui ativos no momento");
+    throw new HttpException (400,"Cliente não possui ativos no momento");
   }
   return cliente;
 }
