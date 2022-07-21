@@ -1,4 +1,9 @@
 import connection from "./connection.js";
+// -------------------------- READ ------------------------------
+
+
+
+// -------------------------- UPDATE ----------------------------
 
 const depositar = async (codCliente,valor) => {
     const [result] = await connection.execute(
@@ -15,5 +20,7 @@ const sacar = async (codCliente,valor) => {
       );
       return result;
 }
+
+
 
 export default {depositar,sacar};

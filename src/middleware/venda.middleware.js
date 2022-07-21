@@ -1,5 +1,5 @@
 import model from "../models/venda.model.js";
-import helper from "../helpers/queries.js";
+import helper from "../helpers/aux.model.js";
 
 const validateVenda = async (req, res, next) => {
   const { codAtivo, qtdAtivo, codCliente } = req.body;

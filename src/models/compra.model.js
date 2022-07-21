@@ -25,6 +25,7 @@ const getAtivo = async (codAtivo) => {
   );
   return result[0];
 };
+
 const getSaldo = async (codCliente) => {
   const [result] = await connection.execute(
     "SELECT saldo FROM Carteiras WHERE cod_cliente = ?",
