@@ -3,9 +3,7 @@ import app from './app.js';
 
 dotenv.config();
 
-const PORT = process.env.MYSQL_PORT;
-
-const server = app.listen(PORT || 5000, () => console.log(
+const server = app.listen(process.env.PORT || 5000, () => console.log(
   `Server is running on PORT: ${PORT}`,
 ));
 
