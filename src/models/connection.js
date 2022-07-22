@@ -8,6 +8,5 @@ const connection = mysql.createPool({
   user: process.env.MYSQL_USER,
   password: process.env.MYSQL_PASSWORD,
   database: process.env.MYSQL_DATABASE,
-}); // sua conexão NÃO deve ter o database, este deve ser especificado em cada query
-
+});
 export default connection;

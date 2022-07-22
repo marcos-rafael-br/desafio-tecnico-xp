@@ -1,15 +1,14 @@
-import userModel from "../models/clientes.model.js";
-import HttpException from "../shared/http.exception.js";
+import userModel from '../models/clientes.model.js';
+import HttpException from '../shared/http.exception.js';
 
 // ------------------------------------ READ ------------------------------------
-const getResumoCliente = async ({id}) => {
-  console.log(id);
+const getResumoCliente = async ({ id }) => {
   const cliente = await userModel.getResumoCliente(id);
   if (cliente.length === 0) {
-    throw new HttpException (400,"Cliente não possui ativos no momento");
+    throw new HttpException(400, 'Cliente não possui ativos no momento');
   }
   return cliente;
-}
+};
 // ------------------------------------ CREATE ------------------------------------
 
 const createCliente = async ({ codCliente, senha }) => {
@@ -27,4 +26,6 @@ const createPortfolio = async ({ codCliente }) => {
   return carteira;
 };
 
-export default { createCliente, createCarteira, createPortfolio, getResumoCliente };
+export default {
+  createCliente, createCarteira, createPortfolio, getResumoCliente,
+};
