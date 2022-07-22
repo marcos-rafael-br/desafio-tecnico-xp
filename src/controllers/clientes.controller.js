@@ -1,18 +1,18 @@
 import { Router } from "express";
 import validateUserCreate from "../middleware/clientes.middleware.js";
-import clientesService from "../services/clientes.service.js";
+import clienteService from "../services/clientes.service.js";
 
 const userController = Router();
 
 userController.post("/cadastrar", validateUserCreate, async (req, res) => {
-  const cliente = await userService.createCliente(req.body);
-  await clientesService.createCarteira(req.body);
-  await clientesService.createPortfolio(req.body);
+  const cliente = await clienteService.createCliente(req.body);
+  await clienteService.createCarteira(req.body);
+  await clienteService.createPortfolio(req.body);
   return res.status(200).json(cliente);
 });
 
 userController.get("/ativos/:id", async (req, res) => {
-  const clientes = await clientesService.getResumoCliente(req.params);
+  const clientes = await clienteService.getResumoCliente(req.params);
   return res.status(200).json(clientes);
 });
 

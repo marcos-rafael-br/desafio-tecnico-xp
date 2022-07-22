@@ -34,7 +34,7 @@ const getSaldo = async (codCliente) => {
   return result[0];
 };
 
-const sumAtivos = async (codCliente, codAtivo) => {
+const somarCompras = async (codCliente, codAtivo) => {
   const [result] = await connection.execute(
     "SELECT SUM(qtd_ativo) as soma FROM Compras WHERE cod_cliente = ? and cod_ativo = ?",
     [codCliente, codAtivo]
@@ -42,12 +42,20 @@ const sumAtivos = async (codCliente, codAtivo) => {
   return result[0].soma;
 };
 
+const somarVendas = async (codCliente, codAtivo) => {
+  const [result] = await connection.execute(
+    "SELECT SUM(qtd_ativo) as soma FROM Vendas WHERE cod_cliente = ? and cod_ativo = ?",
+    [codCliente, codAtivo]
+  );
+  return result[0].soma;
+};
+
 // -------------------------- UPDATE --------------------------------
 
-const updateQtdAtivo = async (codAtivo, newQtdAtivo) => {
+const updateQtdAtivo = async (codAtivo, qtdAtivo) => {
   const [result] = await connection.execute(
     "UPDATE Ativos SET qtd_ativo = qtd_ativo - ? WHERE cod_ativo = ?",
-    [newQtdAtivo, codAtivo]
+    [qtdAtivo, codAtivo]
   );
   return result;
 };
@@ -76,6 +84,7 @@ export default {
   getSaldo,
   updateQtdAtivo,
   updateSaldo,
-  sumAtivos,
+  somarCompras,
+  somarVendas,
   updateResumoAtivos,
 };

@@ -7,14 +7,15 @@ USE Xp_Database;
 CREATE TABLE Clientes
 (
 	cod_cliente INT NOT NULL PRIMARY KEY,
-    senha VARCHAR(50) NOT NULL
+    senha VARCHAR(50) NULL
 );
 
 CREATE TABLE Ativos
 (
 	cod_ativo INT NOT NULL PRIMARY KEY,
 	qtd_ativo INT NOT NULL,
-    valor decimal (10,2) NOT NULL
+    valor decimal (10,2) NOT NULL,
+    qtd_investida INT NULL
 );
 
 CREATE TABLE Compras (
@@ -43,7 +44,7 @@ CREATE TABLE Carteiras (
     cod_cliente INT NOT NULL PRIMARY KEY,
     FOREIGN KEY (cod_cliente)
         REFERENCES Clientes (cod_cliente),
-    saldo DECIMAL (10,2) NOT NULL
+    saldo DECIMAL (10,2) NOT NULL DEFAULT 0.00
 );
 
 CREATE TABLE Portfolio (
@@ -68,7 +69,7 @@ CREATE TABLE portfolio_ativos (
 VALUES(1),(3),(5),(7);*/
 
 INSERT INTO Ativos (cod_ativo,qtd_ativo,valor)
-VALUES(1,500,50),(3,500,50),(10,500,50);
+VALUES(11,100,10),(22,100,10),(33,100,10);
 
 /*INSERT INTO Carteiras (cod_cliente,saldo)
 VALUES(1,5000),(2,5000),(3,5000),(4,5000);*/

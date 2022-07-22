@@ -1,4 +1,5 @@
 import aux from "../helpers/aux.model.js";
+import ativoModel from "../models/ativos.model.js";
 
 const getAtivo = async ({ id }) => {
   const ativo = await aux.getAtivo(id);
@@ -9,4 +10,14 @@ const getAtivo = async ({ id }) => {
   };
 };
 
-export default { getAtivo };
+const sumAtivos = async () => {
+  const result = await ativoModel.sumAtivos();
+  return result.map((ativo) => {
+    return {
+        codAtivo: ativo.cod_ativo,
+       /*  qtdAtivo: ativo.sum, */
+        valorInvestido: ativo.sum * ativo.valor_ativo,
+    }});
+};
+
+export default { getAtivo, sumAtivos };

@@ -10,8 +10,6 @@ const compra = async ({ codCliente, codAtivo, qtdAtivo }) => {
 // -------------------------- UPDATE ----------------------------
 
 const updateQtdAtivo = async ({ codAtivo, qtdAtivo }) => {
- /*  const { qtd_ativo } = await model.getAtivo(codAtivo);
-  const newQtdAtivo = qtd_ativo - qtdAtivo; */
   return await model.updateQtdAtivo(codAtivo, qtdAtivo);
 };
 
@@ -25,9 +23,11 @@ const updateSaldo = async ({ codCliente, codAtivo, qtdAtivo }) => {
 };
 
 const updateResumoAtivos = async ({ codCliente, codAtivo }) => {
-  const sum = await model.sumAtivos(codCliente, codAtivo);
+  const valorCompras = await model.somarCompras(codCliente, codAtivo);
+  const valorVendas = await model.somarVendas(codCliente, codAtivo);
+  const diferença = valorCompras - valorVendas;
   const { valor } = await model.getAtivo(codAtivo);
-  return await model.updateResumoAtivos(codCliente, codAtivo, sum, valor);
+  return await model.updateResumoAtivos(codCliente, codAtivo, +diferença, valor);
 };
 
 export default { compra, updateQtdAtivo, updateSaldo, updateResumoAtivos };

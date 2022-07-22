@@ -13,13 +13,9 @@ const updateQtdAtivo = async ({ codAtivo, qtdAtivo }) => {
 
 const updateSaldo = async ({ codCliente, codAtivo, qtdAtivo }) => {
   const { valor } = await model.getAtivo( codAtivo );
- /*  console.log(valor); */
   const credito = +valor * qtdAtivo;
- /*  console.log(credito); */
   const { saldo } = await model.getSaldo( codCliente );
- /*  console.log(saldo); */
   const newSaldo = +saldo + credito;
- /*  console.log(newSaldo); */
   await model.updateSaldo(newSaldo, codCliente);
   return newSaldo;
 };
@@ -27,6 +23,5 @@ const updateSaldo = async ({ codCliente, codAtivo, qtdAtivo }) => {
 const updateSaldoAtivos = async ({ codCliente, codAtivo, qtdAtivo }) => {
   await model.updateSaldoAtivos(codCliente, codAtivo, qtdAtivo);
 }
-
 
 export default {venda, updateQtdAtivo, updateSaldo,updateSaldoAtivos };
