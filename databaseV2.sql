@@ -1,4 +1,4 @@
-DROP SCHEMA IF EXISTS Xp_Database;
+/* DROP SCHEMA IF EXISTS Xp_Database; */
 
 CREATE DATABASE IF NOT EXISTS Xp_Database;
 
