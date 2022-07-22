@@ -1,5 +1,5 @@
 import userModel from "../models/clientes.model.js";
-import HttpException from "../shared/http.exeception.js";
+import HttpException from "../shared/http.exception.js";
 
 // ------------------------------------ READ ------------------------------------
 const getResumoCliente = async ({id}) => {

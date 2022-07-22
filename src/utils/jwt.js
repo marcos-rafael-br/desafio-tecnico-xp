@@ -1,32 +1,28 @@
-/* const jwt = require('jsonwebtoken');
-const { constructError } = require('../middlewares/error');
+import pkg from 'jsonwebtoken';
+const {sign, verify} = pkg;
+import HttpException from "../shared/http.exception.js";
 
-const { JWT_SECRET } = process.env;
+
+const TOKEN_SECRET = process.env.TOKEN_SECRET || 'sonhogrande';
 
 const jwtConfig = {
-  expiresIn: '1440m', // tempo da seção (1 dia)
-  algorithm: 'HS256',
+    expiresIn: '15m',
+    algorithm: 'HS256'
 };
-// proccesso de criação do token, enviando o payload que fica acessivel no front
+const generateJWTToken = (user) => 
+    sign({user}, TOKEN_SECRET, jwtConfig);
 
-const generateJWTToken = ({ id, displayName, email, password, image }) =>
-  jwt.sign({ id, displayName, email, password, image }, JWT_SECRET, jwtConfig);
+const authenticateToken = async (token) => {
+    if(!token){
+        throw new HttpException(401, "jwt malformed");
+    }
 
-// validação do token e vendo se bate com a assinatura
+    try {
+        const validate = verify(token, TOKEN_SECRET);
+        return validate;
+    } catch(error){
+        throw new HttpException(401, "jwt malformed");
+    }
+}
 
-const authenticateToken = (token) => {
-  if (!token) {
-    throw constructError(401, 'Token not found');
-  }
-  try {
-    const validate = jwt.verify(token, JWT_SECRET);
-    return validate;
-  } catch (error) {
-    throw constructError(401, 'Expired or invalid token');
-  }
-};
-
-module.exports = {
-  generateJWTToken,
-  authenticateToken,
-}; */
+export { generateJWTToken, authenticateToken }

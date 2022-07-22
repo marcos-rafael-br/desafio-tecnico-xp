@@ -10,13 +10,13 @@ const compra = async (codCliente, idAtivo, qtdAtivo) => {
   return result;
 };
 // -------------------------- READ --------------------------------
-const getUser = async (codCliente) => {
+/* const getUser = async (codCliente) => {
   const [result] = await connection.execute(
     "SELECT * FROM Clientes WHERE cod_cliente = ?",
     [codCliente]
   );
   return result[0];
-};
+}; */
 
 const getAtivo = async (codAtivo) => {
   const [result] = await connection.execute(
@@ -79,7 +79,7 @@ const updateResumoAtivos = async (codCliente, codAtivo, sum, valor) => {
 
 export default {
   compra,
-  getUser,
+ /*  getUser, */
   getAtivo,
   getSaldo,
   updateQtdAtivo,
