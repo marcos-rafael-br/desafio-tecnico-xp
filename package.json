@@ -8,7 +8,8 @@
     "start": "node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/index.js",
-    "restore": "node tests/restoreDb.js"
+    "restore": "node tests/restoreDb.js",
+    "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json . --ext .js, .jsx"
   },
   "repository": {
     "type": "git",
