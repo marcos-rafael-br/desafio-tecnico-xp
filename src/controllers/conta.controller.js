@@ -16,7 +16,8 @@ contaController.post('/saque', async (req, res) => {
 });
 
 contaController.get('/:id', async (req, res) => {
-  const cliente = await contaService.getSaldo(req.body);
+  const { id } = req.params;
+  const cliente = await contaService.getSaldo(id);
   res.status(200).json(cliente);
 });
 

@@ -2,8 +2,8 @@ import contaModel from '../models/conta.model.js';
 import aux from '../helpers/aux.model.js';
 //  ---------------------------- READ ----------------------------
 
-const getSaldo = async ({ codCliente }) => {
-  const result = await aux.getSaldo(codCliente);
+const getSaldo = async (id) => {
+  const result = await aux.getSaldo(id);
   return { codCLiente: result.cod_cliente, saldo: result.saldo };
 };
 
