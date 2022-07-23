@@ -12,7 +12,7 @@ investimentosController.post('/comprar', validateCompra, async (req, res) => {
   await serviceC.updateQtdAtivo(Inputs);
   const saldo = await serviceC.updateSaldo(Inputs);
   await serviceC.updateResumoAtivos(Inputs);
-  res.json(`compra efetuada com sucesso e saldo atual é de ${saldo}`);
+  res.status(200).json(`compra efetuada com sucesso e saldo atual é de ${saldo}`);
 });
 
 investimentosController.post('/vender', validateVenda, async (req, res) => {
@@ -21,7 +21,7 @@ investimentosController.post('/vender', validateVenda, async (req, res) => {
   await serviceV.updateQtdAtivo(Inputs);
   const saldo = await serviceV.updateSaldo(Inputs);
   await serviceV.updateSaldoAtivos(Inputs);
-  res.json(`venda efetuada com sucesso e saldo atual é de ${saldo}`);
+  res.status(200).json(`venda efetuada com sucesso e saldo atual é de ${saldo}`);
 });
 
 export default investimentosController;
