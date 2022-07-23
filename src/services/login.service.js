@@ -3,13 +3,13 @@ import clienteModel from '../models/clientes.model.js';
 import { generateJWTToken } from '../utils/jwt.js';
 
 const authenticate = async (user) => {
-  if (!user.codCliente || !user.senha) {
+  if (user.codCliente === undefined || user.senha === undefined) {
     throw new HttpException(401, 'Faltam dados!');
   }
 
   const userData = await clienteModel.getById(user.codCliente);
-  if (userData.length === 0) {
-    throw new HttpException(401, 'Dados incorretos!');
+  if (userData === undefined) {
+    throw new HttpException(401, 'Dados de acesso incorretos!');
   }
 
   const token = generateJWTToken({
