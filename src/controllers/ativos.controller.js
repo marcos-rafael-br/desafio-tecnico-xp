@@ -5,7 +5,6 @@ const ativosController = Router();
 
 ativosController.get('/', async (req, res) => {
   const ativo = await ativoService.sumAtivos();
-  console.log(ativo);
   return res.status(200).json(ativo);
 });
 

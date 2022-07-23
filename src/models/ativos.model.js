@@ -8,7 +8,6 @@ const sumAtivos = async () => {
     /*  [codCliente, codAtivo] */
   );
   return result;
-  console.log(result);
 };
 
 export default { sumAtivos };

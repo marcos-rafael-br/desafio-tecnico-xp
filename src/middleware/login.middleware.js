@@ -6,7 +6,7 @@ const authenticateMiddleware = async (req, res, next) => {
   const token = req.headers.authorization;
   const user = await authenticateToken(token);
   if (!user) {
-    throw new HttpException(401, 'JWT malformed');
+    throw new HttpException(401, 'Token inválido');
   }
   res.locals.user = user;
   next();
