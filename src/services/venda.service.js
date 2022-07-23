@@ -1,12 +1,17 @@
 import model from '../models/venda.model.js';
+import HttpException from '../shared/http.exception.js';
 
 const venda = async ({ codCliente, codAtivo, qtdAtivo }) => {
+  const portfolio = await model.getPortfolio(codCliente, codAtivo);
+  if (portfolio.qtd_ativo <= 0) {
+    throw new HttpException(406, `Voce não possui ${qtdAtivo} cotas do ativo ${codAtivo} para vender`);
+  }
   await model.venda(codCliente, codAtivo, qtdAtivo);
 };
 
 const updateQtdAtivo = async ({ codAtivo, qtdAtivo }) => {
-  const { qtd_ativo } = await model.getAtivo(codAtivo);
-  const newQtdAtivo = qtd_ativo + qtdAtivo;
+  const ativo = await model.getAtivo(codAtivo);
+  const newQtdAtivo = ativo.qtd_ativo + qtdAtivo;
   await model.updateQtdAtivo(codAtivo, newQtdAtivo);
 };
 
