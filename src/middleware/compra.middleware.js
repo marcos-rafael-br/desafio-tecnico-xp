@@ -14,11 +14,11 @@ const validateCompra = async (req, res, next) => {
   if (ativoData === undefined) {
     return res.status(400).json('Ativo não encontrado');
   }
-  if (qtdAtivo > ativoData.qtd_ativo) {
+  /* if (qtdAtivo > ativoData.qtd_ativo) {
     return res.status(406).json({
       message: `A quantidade máxima que voce pode compra é ${ativoData.qtd_ativo} `,
     });
-  }
+  } */
   if (saldoData.saldo < (qtdAtivo * ativoData.valor)) {
     return res.status(406).json({
       message: `Seu saldo atual é de ${saldoData.saldo}. Para efetuar essa compra seu saldo deve ser de ${qtdAtivo * ativoData.valor}`,

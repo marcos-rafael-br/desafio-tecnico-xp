@@ -1,15 +1,21 @@
 import model from '../models/compra.model.js';
+import HttpException from '../shared/http.exception.js';
 
 // -------------------------- CREATE ----------------------------
 
 const compra = async ({ codCliente, codAtivo, qtdAtivo }) => {
-  const { cod_ativo } = await model.getAtivo(codAtivo);
-  await model.compra(codCliente, cod_ativo, qtdAtivo);
+  const ativoData = await model.getAtivo(codAtivo);
+  if (qtdAtivo > ativoData.qtd_ativo) {
+    throw new HttpException(400, `A quantidade máxima que voce pode comprar é ${ativoData.qtd_ativo} cotas do ativo ${ativoData.cod_ativo}`);
+  }
+  await model.compra(codCliente, ativoData.cod_ativo, qtdAtivo);
 };
 
 // -------------------------- UPDATE ----------------------------
 
-const updateQtdAtivo = async ({ codAtivo, qtdAtivo }) => await model.updateQtdAtivo(codAtivo, qtdAtivo);
+const updateQtdAtivo = async ({ codAtivo, qtdAtivo }) => {
+  await model.updateQtdAtivo(codAtivo, qtdAtivo);
+};
 
 const updateSaldo = async ({ codCliente, codAtivo, qtdAtivo }) => {
   const { valor } = await model.getAtivo(codAtivo);
