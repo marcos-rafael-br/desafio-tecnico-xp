@@ -8,7 +8,7 @@ userController.post('/cadastrar', validateUserCreate, async (req, res) => {
   const cliente = await clienteService.createCliente(req.body);
   await clienteService.createCarteira(req.body);
   await clienteService.createPortfolio(req.body);
-  return res.status(200).json(cliente);
+  return res.status(200).json({ message: 'Cliente cadastrado com sucesso!' });
 });
 
 userController.get('/ativos/:id', async (req, res) => {
