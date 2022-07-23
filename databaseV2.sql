@@ -1,4 +1,4 @@
-/* DROP SCHEMA IF EXISTS Xp_Database; */
+DROP SCHEMA IF EXISTS Xp_Database;
 
 CREATE DATABASE IF NOT EXISTS Xp_Database;
 
@@ -65,15 +65,15 @@ CREATE TABLE portfolio_ativos (
     valor_ativo decimal (10,2) NOT NULL
 );
 
-/*INSERT INTO Clientes (cod_cliente)
-VALUES(1),(3),(5),(7);*/
+INSERT INTO Clientes (cod_cliente)
+VALUES(1001),(1002),(1003),(1004);
 
 INSERT INTO Ativos (cod_ativo,qtd_ativo,valor)
-VALUES(11,100,10),(22,100,10),(33,100,10);
+VALUES(11,100,10),(22,100,10),(33,100,10),(44,100,10);
 
-/*INSERT INTO Carteiras (cod_cliente,saldo)
-VALUES(1,5000),(2,5000),(3,5000),(4,5000);*/
+INSERT INTO Carteiras (cod_cliente,saldo)
+VALUES(1001,2000),(1002,2000),(1003,2000),(1004,2000);
 
-/*INSERT INTO Portfolio (cod_cliente)
-VALUES(1),(3),(5),(7);*/
+INSERT INTO Portfolio (cod_cliente)
+VALUES(1001),(1002),(1003),(1004);
 
