@@ -13,14 +13,14 @@ const generateJWTToken = (user) => sign({ user }, TOKEN_SECRET, jwtConfig);
 
 const authenticateToken = async (token) => {
   if (!token) {
-    throw new HttpException(401, 'jwt malformed');
+    throw new HttpException(401, 'Token não informado');
   }
 
   try {
     const validate = verify(token, TOKEN_SECRET);
     return validate;
   } catch (error) {
-    throw new HttpException(401, 'jwt malformed');
+    throw new HttpException(401, 'Token inválido');
   }
 };
 
