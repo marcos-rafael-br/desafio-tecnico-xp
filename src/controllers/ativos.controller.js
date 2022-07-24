@@ -4,7 +4,7 @@ import ativoService from '../services/ativos.service.js';
 const ativosController = Router();
 
 ativosController.get('/', async (req, res) => {
-  const ativo = await ativoService.sumAtivos();
+  const ativo = await ativoService.getAllAtivos();
   return res.status(200).json(ativo);
 });
 

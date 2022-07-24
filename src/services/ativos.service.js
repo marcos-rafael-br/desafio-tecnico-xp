@@ -14,13 +14,15 @@ const getAtivo = async ({ id }) => {
   };
 };
 
-const sumAtivos = async () => {
-  const result = await ativoModel.sumAtivos();
-  return result.map((ativo) => ({
+const getAllAtivos = async () => {
+  const allAtivos = await ativoModel.getAllAtivos();
+  return allAtivos.map((ativo) => ({
     codAtivo: ativo.cod_ativo,
-    /*  qtdAtivo: ativo.sum, */
-    valorInvestido: ativo.sum * ativo.valor_ativo,
+    nomeAtivo: ativo.nome_ativo,
+    Fornecimento: ativo.qtd_inicial,
+    qtdAtivoVendida: ativo.qtd_inicial - ativo.qtd_ativo,
+    capitalizaçãoAtivo: `R$ ${+ativo.valor * (ativo.qtd_inicial - ativo.qtd_ativo)}`,
   }));
 };
 
-export default { getAtivo, sumAtivos };
+export default { getAtivo, getAllAtivos };
