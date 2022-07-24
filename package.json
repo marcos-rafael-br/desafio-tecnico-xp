@@ -31,7 +31,8 @@
     "mysql-import": "^5.0.21",
     "mysql2": "^2.3.3",
     "pg": "^8.7.3",
-    "pg-hstore": "^2.3.4"
+    "pg-hstore": "^2.3.4",
+    "swagger-jsdoc": "^6.2.1"
   },
   "devDependencies": {
     "eslint": "^8.20.0",
