@@ -3,6 +3,9 @@ import HttpException from '../shared/http.exception.js';
 
 const venda = async ({ codCliente, codAtivo, qtdAtivo }) => {
   const portfolio = await model.getPortfolio(codCliente, codAtivo);
+  if (portfolio === undefined) {
+    throw new HttpException(406, `Voce não possui cotas do ativo ${codAtivo} para vender`);
+  }
   if (portfolio.qtd_ativo < qtdAtivo) {
     throw new HttpException(406, `Voce possui apenas ${portfolio.qtd_ativo} cotas do ativo ${codAtivo} para vender`);
   }
