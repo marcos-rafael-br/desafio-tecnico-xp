@@ -182,6 +182,8 @@ Para executar o projeto, foi elaborada uma sequencia de orientações descritas 
 
 O deploy da api foi feito usando o Heroku, e seu AddOn ClearDB MySQL.
 
+Link: https://api-assets.herokuapp.com/ativos
+
 
 </details>
 
