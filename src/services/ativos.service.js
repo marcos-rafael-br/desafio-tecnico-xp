@@ -20,6 +20,7 @@ const getAllAtivos = async () => {
     codAtivo: ativo.cod_ativo,
     nomeAtivo: ativo.nome_ativo,
     Fornecimento: ativo.qtd_inicial,
+    preçoAtivo: ativo.valor,
     qtdAtivoVendida: ativo.qtd_inicial - ativo.qtd_ativo,
     capitalizaçãoAtivo: (+ativo.valor * (ativo.qtd_inicial - ativo.qtd_ativo)).toFixed(2),
   }));

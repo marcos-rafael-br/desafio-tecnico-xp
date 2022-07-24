@@ -17,6 +17,37 @@ const routers = Router();
 
 /**
  * @swagger
+ *  /login:
+ *    post:
+ *      tags: [Login]
+ *      description: Gera um token para o cliente
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              $ref: '#/components/schemas/ClientesCadastro'
+ *      responses:
+ *        200:
+ *          content:
+ *            text/plain::
+ *              schema:
+ *                type: object
+ *                example: {"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImNsaWVudGUiOjF9LCJpYXQiOjE2NTg2OTc1MzEsImV4cCI6MTY1ODcwMTEzMX0.GW8zWysGvxIlggkSxJdrXUkw5YVZpRo-yqV7jOPusho", "user": 1}
+ */
+
+routers.use('/login', loginRouter);
+
+/**
+ * @swagger
+ *  tags:
+ *    name: Investimentos
+ *    description: Endpoints para login de clientes e geração de token
+ */
+
+/**
+ * @swagger
  *  components:
  *      schemas:
  *          ClientesCadastro:
@@ -24,6 +55,7 @@ const routers = Router();
  *            required:
  *              - codCliente
  *              - codAtivo
+ *              - qtdAtivo
  *            properties:
  *              codCliente:
  *                type: integer
@@ -34,7 +66,27 @@ const routers = Router();
  *              senha: senha123
  */
 
-routers.use('/login', loginRouter);
+/**
+ * @swagger
+ *  /investimentos/comprar:
+ *    post:
+ *      tags: [Investimentos]
+ *      description: O usuário compra um ativo
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              $ref: '#/components/schemas/ClientesCadastro'
+ *      responses:
+ *        200:
+ *          content:
+ *            text/plain::
+ *              schema:
+ *                type: object
+ *                example: {"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImNsaWVudGUiOjF9LCJpYXQiOjE2NTg2OTc1MzEsImV4cCI6MTY1ODcwMTEzMX0.GW8zWysGvxIlggkSxJdrXUkw5YVZpRo-yqV7jOPusho", "user": 1}
+ */
 
 routers.use('/investimentos', authenticateMiddleware, investimentosController);
 

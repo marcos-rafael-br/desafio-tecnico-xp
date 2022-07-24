@@ -16,6 +16,15 @@ const swaggerConfig = {
         description: 'Api',
       },
     ],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
+    },
   },
   apis: ['./routes.js'],
 };
