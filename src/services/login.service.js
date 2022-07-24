@@ -9,7 +9,10 @@ const authenticate = async (user) => {
 
   const userData = await clienteModel.getById(user.codCliente);
   if (userData === undefined) {
-    throw new HttpException(401, 'Dados de acesso incorretos!');
+    throw new HttpException(401, 'Usuário não encontrado!');
+  }
+  if (userData.senha !== user.senha) {
+    throw new HttpException(401, 'Senha Incorreta!');
   }
 
   const token = generateJWTToken({
