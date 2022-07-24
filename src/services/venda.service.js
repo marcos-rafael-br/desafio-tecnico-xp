@@ -3,7 +3,7 @@ import HttpException from '../shared/http.exception.js';
 
 const venda = async ({ codCliente, codAtivo, qtdAtivo }) => {
   const portfolio = await model.getPortfolio(codCliente, codAtivo);
-  if (portfolio.qtd_ativo <= 0) {
+  if (portfolio.qtd_ativo <= 0 || portfolio.qtd_ativo === undefined) {
     throw new HttpException(406, `Voce não possui ${qtdAtivo} cotas do ativo ${codAtivo} para vender`);
   }
   await model.venda(codCliente, codAtivo, qtdAtivo);
