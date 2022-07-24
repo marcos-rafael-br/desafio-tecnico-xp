@@ -15,6 +15,9 @@ const depositar = async ({ codCliente, valor }) => {
   if (cliente === undefined) {
     throw new HttpException(400, 'Cliente não encontrado');
   }
+  if (valor <= 0) {
+    throw new HttpException(400, 'Favor depositar um valor maior que zero');
+  }
   const result = await contaModel.depositar(codCliente, valor);
   return result;
 };
