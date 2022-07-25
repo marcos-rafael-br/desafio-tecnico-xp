@@ -12,7 +12,7 @@ contaController.post('/deposito', async (req, res) => {
 contaController.post('/saque', async (req, res) => {
   const Inputs = req.body;
   await contaService.sacar(Inputs);
-  res.status(200).json({ message: `deposito de R$ ${req.body.valor} reais efetuado com sucesso!` });
+  res.status(200).json({ message: `saque de R$ ${req.body.valor} reais efetuado com sucesso!` });
 });
 
 contaController.get('/:id', async (req, res) => {

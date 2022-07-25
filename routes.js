@@ -50,7 +50,7 @@ routers.use('/login', loginRouter);
  * @swagger
  *  components:
  *      schemas:
- *          ClientesCadastro:
+ *          InvestimentosAcoes:
  *            type: object
  *            required:
  *              - codCliente
@@ -59,11 +59,14 @@ routers.use('/login', loginRouter);
  *            properties:
  *              codCliente:
  *                type: integer
- *              senha:
- *                type: string
+ *              codAtivo:
+ *                type: integer
+ *              qtdAtivo:
+ *                type: integer
  *            example:
  *              codCliente: 1001
- *              senha: senha123
+ *              codAtivo: 111
+ *              qtdAtivo: 10
  */
 
 /**
@@ -72,20 +75,46 @@ routers.use('/login', loginRouter);
  *    post:
  *      tags: [Investimentos]
  *      description: O usuário compra um ativo
+ *      security:
+ *        - bearerAuth: []
  *      requestBody:
  *        required: true
  *        content:
  *          application/json:
  *            schema:
  *              type: object
- *              $ref: '#/components/schemas/ClientesCadastro'
+ *              $ref: '#/components/schemas/InvestimentosAcoes'
  *      responses:
  *        200:
  *          content:
  *            text/plain::
  *              schema:
- *                type: object
- *                example: {"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImNsaWVudGUiOjF9LCJpYXQiOjE2NTg2OTc1MzEsImV4cCI6MTY1ODcwMTEzMX0.GW8zWysGvxIlggkSxJdrXUkw5YVZpRo-yqV7jOPusho", "user": 1}
+ *                type: string
+ *                example: "compra efetuada com sucesso e saldo atual é de 896.80"
+ */
+
+/**
+ * @swagger
+ *  /investimentos/vender:
+ *    post:
+ *      tags: [Investimentos]
+ *      description: O usuário compra um ativo
+ *      security:
+ *        - bearerAuth: []
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              $ref: '#/components/schemas/InvestimentosAcoes'
+ *      responses:
+ *        200:
+ *          content:
+ *            text/plain::
+ *              schema:
+ *                type: string
+ *                example: "venda efetuada com sucesso e saldo atual é de 1000.00"
  */
 
 routers.use('/investimentos', authenticateMiddleware, investimentosController);
@@ -181,12 +210,215 @@ routers.use('/investimentos', authenticateMiddleware, investimentosController);
  *            application/json:
  *              schema:
  *                type: array
- *                items: #/components/schemas/ClientesAtivos
+ *                $ref: '#/components/schemas/ClientesAtivos'
  */
 
 routers.use('/clientes', userController);
 
+/**
+ * @swagger
+ *  tags:
+ *      name: Conta
+ *      description: Endpoints de conta
+ */
+
+/**
+ * @swagger
+ *  components:
+ *      schemas:
+ *          Deposito e Saque:
+ *            type: object
+ *            required:
+ *              - codCliente
+ *              - valor
+ *            properties:
+ *              codCliente:
+ *                type: number
+ *              valor:
+ *                type: number
+ *            example:
+ *              codCliente: 111
+ *              valor: 1000
+ */
+
+/**
+ * @swagger
+ *  components:
+ *      schemas:
+ *         Conta:
+ *           type: object
+ *           properties:
+ *             codCLiente:
+ *               type: number
+ *             saldo:
+ *               type: number
+ *           example:
+ *               codCLiente: 3
+ *               saldo: 1000
+ */
+
+/**
+ * @swagger
+ *  /contas/deposito:
+ *    post:
+ *      tags: [Conta]
+ *      description: Endpoint para depósito na conta do usuário
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              $ref: '#/components/schemas/Deposito e Saque'
+ *      responses:
+ *        201:
+ *          content:
+ *            text/plain::
+ *              schema:
+ *                type: object
+ *                example: {"message":"deposito de R$ 1000 reais efetuado com sucesso!"}
+ */
+
+/**
+ * @swagger
+ *  /contas/saque:
+ *    post:
+ *      tags: [Conta]
+ *      description: Endpoint para saque na conta do usuário
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              $ref: '#/components/schemas/Deposito e Saque'
+ *      responses:
+ *        201:
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                example: {"message":"saque de R$ 1000 reais efetuado com sucesso!"}
+ */
+
+/**
+  * @swagger
+  *  /contas/{id}:
+  *    get:
+  *      tags: [Conta]
+  *      description: Endpoint que retorna a conta do usuário
+  *      parameters:
+  *        - in: path
+  *          name: id
+  *          type: number
+  *          required: true
+  *      responses:
+  *        200:
+  *          content:
+  *            application/json:
+  *              schema:
+  *                type: object
+  *                $ref: '#/components/schemas/Conta'
+ */
 routers.use('/contas', contaController);
+
+/**
+ * @swagger
+ *  tags:
+ *    name: Ativos
+ *    description: Endpoints para cadastro verificação de todos ativos e por id do ativo
+ */
+
+/**
+ * @swagger
+ *  components:
+ *      schemas:
+ *          AtivosId:
+ *            type: object
+ *              - codAtivo
+ *              - qtdAtivo
+ *              - valorAtivo
+ *            properties:
+ *              codAtivo:
+ *                type: integer
+ *              qtdAtivo:
+ *                type: integer
+ *              valorAtivo:
+ *                type: decimal
+ *            example:
+ *              codAtivo: 111
+ *              qtdAtivo: 10
+ *              valorAtivo: 10.32
+ */
+
+/**
+ * @swagger
+ *  /ativos/{id}:
+ *    get:
+ *      tags: [Ativos]
+ *      description: Consulta os ativos de um cliente
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          type: number
+ *          required: true
+ *      responses:
+ *        200:
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                $ref: '#/components/schemas/AtivosId'
+ */
+
+/**
+ * @swagger
+ *  components:
+ *      schemas:
+ *          AllAtivos:
+ *            type: object
+ *              - codAtivo
+ *              - nomeAtivo
+ *              - fornecimento
+ *              - preçoAtivo
+ *              - qtdAtivoVendida
+ *              - capitalizaçãoAtivo
+ *            properties:
+ *              codAtivo:
+ *                type: integer
+ *              nomeAtivo:
+ *                type: string
+ *              fornecimento:
+ *                type: integer
+ *              preçoAtivo:
+ *                type: decimal
+ *              qtdAtivoVendida:
+ *                type: integer
+ *              capitalizaçãoAtivo:
+ *                type: decimal
+ *            example:
+ *              codAtivo: 111
+ *              nomeAtivo: "VALE3"
+ *              fornecimento: 100
+ *              preçoAtivo: 10.32
+ *              qtdAtivoVendida: 10
+ *              capitalizaçãoAtivo: 206.40
+ */
+
+/**
+ * @swagger
+ *  /ativos:
+ *    get:
+ *      tags: [Ativos]
+ *      description: Consulta os ativos de um cliente
+ *      responses:
+ *        200:
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: array
+ *                $ref: '#/components/schemas/AllAtivos'
+ */
 
 routers.use('/ativos', ativosController);
 
