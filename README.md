@@ -203,7 +203,7 @@ O link para acesso ao Swagger é:
 
 Link: https://api-assets.herokuapp.com/docs, devendo trocar o server de localHost para a api.
 
-Ele também pode consultado no localHost:{porta}
+Ele também pode consultado no localHost:{porta}/docs
 
 </details>
 
