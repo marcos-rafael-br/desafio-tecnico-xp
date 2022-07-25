@@ -1,5 +1,12 @@
 # Boas vindas a solução do desafio técnico de BackEnd oferecido pela XP Inc.
 
+Olá, me chamo Marcos Rafael, desenvolvedor fullStack e esta é minha entrega para o desafio técnico da XP Inc.
+
+Para o desenvolvimento desse desafio, ao falar sobre desenvolvimento da aplicação escolhi não utilizar uma ORM devido ao pouco contato que tive com Sequelize, então me senti mais confortável em usar apenas queries de MySql. Vale comentar também sobre o não uso do TypeScript devido a tê-lo conhecido e utilizado somente nas ultimas 2 semanas.
+
+Sobre a proposta de ... desenvolver uma aplicação que se assemelha ao nosso dia a
+dia, um aplicativo de investimento em ações, com algumas funcionalidades de conta digital ... a estrutura desenvolvida não foi pensada como um livro de ofertas onde uma proposta de compra deve encontrar uma proposta de venda, mas sim como se uma empresa tivesse ações que pudessem ser compradas por ela e também revendidas a ela com um preço estático.
+
 Para executar o projeto, foi elaborada uma sequencia de orientações descritas a seguir, e para dúvidas ou contribuições, favor abrir uma issue ou entrar em contato pelo email: mrpf10@hotmail.com. 
 
 # Entregas
@@ -10,7 +17,7 @@ Para executar o projeto, foi elaborada uma sequencia de orientações descritas 
   Projeto desenvolvido para o Desafio Técnico da XP Inc. Foi escolhido o desafio de backend, utilizando o Node.js e MySql para construção da API apresentada a seguir, com o objetivo de simular um aplicativo de investimento em ações, com algumas funções de conta digital, e dados fictícios para demonstrar o funcionamento da aplicação.
   
   
-  A arquitetura utilizada foi a MSC, buscando implementar os princípios Restful, além das bibliotecas express, express-async errors, nodemon, dotenv, jsonwebtoken, mysql2, mysql-import e eslint para tratamento, autenticação, validação das entidades, e manutenção da qualidade do código.
+  A arquitetura utilizada foi a MSC, buscando implementar os princípios Restful, além das bibliotecas express, express-async errors, nodemon, dotenv, jsonwebtoken, mysql2, mysql-import, swagger e eslint para tratamento, autenticação, validação das entidades, e manutenção da qualidade do código.
  
 
 </details>
@@ -34,15 +41,19 @@ Para executar o projeto, foi elaborada uma sequencia de orientações descritas 
   > Rode o serviço `node` com o comando `docker-compose up -d`.
   - Esse serviço irá inicializar um container chamado `xp_api`.
   - A partir daqui você pode rodar o container `xp_api` via CLI ou abri-lo no VS Code.
+  - Importante parar o serviço MySql se estiver rodando. (sudo service mysql stop)
+  - A porta 3001 esta configurada para ser utilizada pelo app.
 
   > Use o comando `docker exec -it xp_api bash`.
   - Ele te dará acesso ao terminal interativo do container criado pelo compose, que está rodando em segundo plano.
 
   > Instale as dependências com `npm install`
   
-  ⚠ Atenção ⚠ Caso opte por utilizar o Docker, **TODOS** os comandos disponíveis no `package.json` (npm start, npm test, npm run dev, ...) devem ser executados **DENTRO** do container, ou seja, no terminal que aparece após a execução do comando `docker exec` citado acima. 
+  ⚠ Atenção ⚠ Caso opte por utilizar o Docker, **TODOS** os comandos disponíveis no `package.json` (npm start, npm test, npm run dev, ...) devem ser executados **DENTRO** do container, ou seja, no terminal que aparece após a execução do comando `docker exec` citado acima.
 
- 
+  ✨ **Rode o comando** `npm run dev` para startar o servidor com o nodemom e conseguir fazer as requisições. 
+
+ ✨ **Rode o comando** `npm run restore` para que o banco de dados possa ser populado com as informações fixas necessárias e assim possa ser testado pelo usuário.
 
 ---
   
@@ -50,11 +61,15 @@ Para executar o projeto, foi elaborada uma sequencia de orientações descritas 
   
   > Instale as dependências com `npm install`
   
-  ✨ **Dica:** Para rodar o projeto desta forma, obrigatoriamente você deve ter o `node` instalado em seu computador.
+  ✨ **Atenção:** Para rodar o projeto desta forma, obrigatoriamente você deve ter o `node` instalado em seu computador.
 
-  ✨ **Dica:** Recomenda-se a versão 16 ou superior do `node`, versão em que a aplicação foi desenvolvida.
+  ✨ **Atenção:** Recomenda-se a versão 16 ou superior do `node`, versão em que a aplicação foi desenvolvida.
 
-  ✨ **Rode o comando** `npm run restore para que o banco de dados possa ser populado com as informações fixas necessárias e assim possa ser testado pelo usuario`
+  ✨ **Atenção:** É necessário renomear o arquivo `.env.example` para `.env` e passar suas variáveis de ambiente.
+
+  ✨ **Rode o comando** `npm run dev` para startar o servidor com o nodemom e conseguir fazer as requisições.
+
+  ✨ **Rode o comando** `npm run restore` para que o banco de dados possa ser populado com as informações fixas necessárias e assim possa ser testado pelo usuário`
 
   <br/>
 </details>
@@ -76,21 +91,14 @@ Para executar o projeto, foi elaborada uma sequencia de orientações descritas 
 <details>
   <summary><strong> Testes</strong></summary><br />
 
-  Foram utilizadas as bibliotecas Mocha, chai e sinon para desenvolvimento dos testes unitários. 
-
-  A cobertura mínima do código definida foi de 70%, melhor descrita na seção de implementações.
-
-  **_Para executar os testes localmente, digite no terminal o comando `npm test`._**
+  Não foi possível implementar os testes devido ao tempo gasto até as últimas horas do desafio no que vou apresentar , porém no decorrer do projeto ficou evidente a importância de tais, uma vez que testar os resultados das funções consultando manualmente os retornos no banco local e postman é cansativo e induz a erros.
 
 </details>
 
 <details>
-  <summary  id="diagrama"><strong> Diagrama ER e Entidades</strong></summary>
+  <summary  id="diagrama"><strong> Entidades</strong></summary>
 
-  #### Diagrama de Entidade-Relacionamento
-
-  Em construção.....
-
+  
   ---
 
   #### Formato das entidades
@@ -114,7 +122,7 @@ Para executar o projeto, foi elaborada uma sequencia de orientações descritas 
     {
       "cod_ativo": 11,
       "qtd_ativo":100,
-      "nome_ativo": "BTC",
+      "nome_ativo": "PETR4",
       "valor": 10.32,
       "qtd_inicial": 100
     }
@@ -184,10 +192,18 @@ O deploy da api foi feito usando o Heroku, e seu AddOn ClearDB MySQL.
 
 Link: https://api-assets.herokuapp.com/ativos
 
+A api pode ser consultada através de ferramentas como o postman e também consumida por uma aplicação FrontEnd.
+
+
+</details>
+
+<details><summary><strong> Swagger </strong></summary><br />
+
 O link para acesso ao Swagger é:
 
-Link: https://api-assets.herokuapp.com/docs, devendo trocar o server de localHost para a api 
+Link: https://api-assets.herokuapp.com/docs, devendo trocar o server de localHost para a api.
 
+Ele também pode consultado no localHost:{porta}
 
 </details>
 
@@ -199,40 +215,3 @@ Se estiver a vontade, clone o repositório e, seja com ou sem o Docker, execute,
 
 </details>
 
-
-
-# Implementações
-
-<details>
-  <summary><strong> Contextualizando </strong></summary><br />
-
-Em construção...  
-
-</details>
-
-### 1 - Através do endpoint POST `/investimentos/comprar`
-
-- O endpoint é acessível através do caminho `/investimentos/comprar`;
-- O endpoint deve ser capaz de executar uma ordem de compra à tabela `bid` no banco de dados;
-- O corpo da requisição segue o formato abaixo:
-  ```json
-  {
-    "codCliente": 1,
-    "codAtivo":222,
-    "qtdAtivo":10
-  }
-  ```
-
-<details>
-  <summary><strong> Validações </strong></summary>
-
-  * **[Será validado que não é possível executar uma ordem de compra com a quantidade maior do que o tag along]**
-  - Se o campo `bid_qtd` tiver um valor maior que o total de ações negociáveis, coluna `shares` da tabela Assets, o resultado retornado deverá ser conforme exibido abaixo, com um status http `400`:
-    ```json
-    {
-      "message": "\"bid_qtd\" must be less or equal the tag along"
-    }
-    ```
-</details>
-
----
